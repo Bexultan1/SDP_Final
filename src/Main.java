@@ -1,18 +1,9 @@
 import Singleton.* ;
 import Observer.*;
+import Decorator.*;
+import Factory.*;
 
 // Decorator Pattern
-interface Skin {
-    void applySkin();
-}
-
-class DefaultSkin implements Skin {
-    @Override
-    public void applySkin() {
-        System.out.println("Applying default skin.");
-    }
-}
-
 class GoldenSkinDecorator implements Skin {
     private Skin decoratedSkin;
 
@@ -27,27 +18,6 @@ class GoldenSkinDecorator implements Skin {
     }
 }
 
-// Factory Pattern
-interface Map {
-    void loadMap();
-}
-
-class ClassicMap implements Map {
-    @Override
-    public void loadMap() {
-        System.out.println("Loading classic map.");
-    }
-}
-
-class Factory {
-    public Map createMap(String mapType) {
-        if ("classic".equalsIgnoreCase(mapType)) {
-            return new ClassicMap();
-        }
-        // Add more map types as needed
-        return null;
-    }
-}
 
 // Strategy Pattern
 interface FightStrategy {
@@ -87,9 +57,8 @@ public class Main {
         player2Skin.applySkin();
 
         // Factory
-        Factory mapFactory = new Factory();
-        Map classicMap = mapFactory.createMap("classic");
-        classicMap.loadMap();
+        MapFactory mapFactory = new MapFactory();
+        mapFactory.loadMap("New Year");
 
         // Strategy
         FightStrategy aggressiveStrategy = new AggressiveStrategy();
