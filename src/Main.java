@@ -1,17 +1,108 @@
-// Press Shift twice to open the Search Everywhere dialog and type `show whitespaces`,
-// then press Enter. You can now see whitespace characters in your code.
+import Singleton.* ;
+import Observer.*;
+
+// Decorator Pattern
+interface Skin {
+    void applySkin();
+}
+
+class DefaultSkin implements Skin {
+    @Override
+    public void applySkin() {
+        System.out.println("Applying default skin.");
+    }
+}
+
+class GoldenSkinDecorator implements Skin {
+    private Skin decoratedSkin;
+
+    public GoldenSkinDecorator(Skin decoratedSkin) {
+        this.decoratedSkin = decoratedSkin;
+    }
+
+    @Override
+    public void applySkin() {
+        decoratedSkin.applySkin();
+        System.out.println("Applying golden skin.");
+    }
+}
+
+// Factory Pattern
+interface Map {
+    void loadMap();
+}
+
+class ClassicMap implements Map {
+    @Override
+    public void loadMap() {
+        System.out.println("Loading classic map.");
+    }
+}
+
+class Factory {
+    public Map createMap(String mapType) {
+        if ("classic".equalsIgnoreCase(mapType)) {
+            return new ClassicMap();
+        }
+        // Add more map types as needed
+        return null;
+    }
+}
+
+// Strategy Pattern
+interface FightStrategy {
+    void performFight();
+}
+
+class AggressiveStrategy implements FightStrategy {
+    @Override
+    public void performFight() {
+        System.out.println("Fighting aggressively.");
+    }
+}
+
+class DefensiveStrategy implements FightStrategy {
+    @Override
+    public void performFight() {
+        System.out.println("Fighting defensively.");
+    }
+}
+
 public class Main {
     public static void main(String[] args) {
-        // Press Alt+Enter with your caret at the highlighted text to see how
-        // IntelliJ IDEA suggests fixing it.
-        System.out.printf("Hello and welcome!");
+        // Observer
+        NewsAgency newsAgency = new NewsAgency();
+        Player player1 = new Player("Player 1");
+        Player player2 = new Player("Player 2");
+        newsAgency.addObserver(player1);
+        newsAgency.addObserver(player2);
 
-        // Press Shift+F10 or click the green arrow button in the gutter to run the code.
-        for (int i = 1; i <= 5; i++) {
+        newsAgency.notifyObservers("New Mortal Kombat update!");
 
-            // Press Shift+F9 to start debugging your code. We have set one breakpoint
-            // for you, but you can always add more by pressing Ctrl+F8.
-            System.out.println("i = " + i);
-        }
+        // Decorator
+        Skin player1Skin = new DefaultSkin();
+        player1Skin.applySkin();
+
+        Skin player2Skin = new GoldenSkinDecorator(new DefaultSkin());
+        player2Skin.applySkin();
+
+        // Factory
+        Factory mapFactory = new Factory();
+        Map classicMap = mapFactory.createMap("classic");
+        classicMap.loadMap();
+
+        // Strategy
+        FightStrategy aggressiveStrategy = new AggressiveStrategy();
+        aggressiveStrategy.performFight();
+
+        FightStrategy defensiveStrategy = new DefensiveStrategy();
+        defensiveStrategy.performFight();
+
+        // Singleton
+        DatabaseConnection databaseConnection1 = DatabaseConnection.getInstance();
+        DatabaseConnection databaseConnection2 = DatabaseConnection.getInstance();
+
+        databaseConnection1.connect();
+        databaseConnection2.connect();
     }
 }
