@@ -1,7 +1,8 @@
 package Decorator;
+import Strategy.*;
 
 import Decorator.*;
-public class Hero {
+public class Hero implements IHero{
     private String name;
     private String skin;
 
@@ -9,10 +10,15 @@ public class Hero {
         this.name = name;
         this.skin = "Default";
     }
+    private FightStrategy fightStrategy;
+    public void setFightStrategy(FightStrategy fightStrategy) {
+        this.fightStrategy = fightStrategy;
+    }
 
     public void setSkin(String skin) {
         this.skin = skin;
     }
+    public String getSkin(){return skin;}
 
     public void performSpecialMove() {
         System.out.println(name + " performs a special move.");

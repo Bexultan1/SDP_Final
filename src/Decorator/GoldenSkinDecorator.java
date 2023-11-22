@@ -5,7 +5,7 @@ public class GoldenSkinDecorator extends SkinDecorator{
         super(hero);
     }
     @Override
-    public void applySkin(Hero hero) {
-        hero.setSkin("Golden");
+    public String getSkin(){
+        return "Golden";
     }
 }
